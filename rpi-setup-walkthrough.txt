@@ -1,0 +1,129 @@
+sudo adduser joel
+sudo adduser joel sudo
+sudo nano /etc/hostname
+sudo nano /etc/hosts
+
+rpi_worker_6
+rpi_worker_5
+
+https://www.shogan.co.uk/kubernetes/building-a-pi-kubernetes-cluster-part-3-worker-nodes-and-metallb/
+https://wiki.learnlinux.tv/index.php/How_to_build_your_own_Raspberry_Pi_Kubernetes_Cluster
+
+
+##### DOCKER #####
+Edit /boot/cmndline.txt and add:
+cgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory
+
+ sudo apt update && sudo apt dist-upgrade
+
+disable swap:
+sudo dphys-swapfile swapoff
+ sudo dphys-swapfile uninstall
+ sudo apt purge dphys-swapfile
+
+ sudo reboot
+
+curl -sSL get.docker.com | sh
+ sudo usermod -aG docker joel
+
+sudo vim /etc/docker/daemon.json
+{
+   "exec-opts": ["native.cgroupdriver=systemd"],
+   "log-driver": "json-file",
+   "log-opts": {
+     "max-size": "100m"
+   },
+   "storage-driver": "overlay2"
+ }
+
+ sudo reboot
+
+
+#### KUBERNETES #######
+### DONT JOIN NODES YET ######
+ sudo vim /etc/apt/sources.list.d/kubernetes.list
+
+ deb http://apt.kubernetes.io/ kubernetes-xenial main
+ curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+ sudo apt update
+ sudo apt install kubeadm kubectl kubelet
+
+ sudo sysctl net.bridge.bridge-nf-call-iptables=1
+ sudo update-alternatives --set iptables /usr/sbin/iptables-legacy
+ sudo iptables -w -P FORWARD ACCEPT
+
+ sudo reboot -n
+
+#####  MASTER NODE ONLY #######
+
+ kubeadm init --pod-network-cidr=192.168.0.0/16 --apiserver-advertise-address=10.0.0.22
+ #OPTIONAL TAGS --service-cidr=10.18.0.0/24 --service-dns-domain=mydomain.com
+
+ mkdir -p ~.kube
+ sudo cp /etc/kubernetes/admin.conf ~/.kube/config
+ sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+ # Apply Flannel mesh network
+ kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+
+ # Apply metallb 
+ # kubectl apply -f https://gist.githubusercontent.com/Shogan/d418190a950a1d6788f9b168216f6fe1/raw/ca4418c7167a64c77511ba44b2c7736b56bdad48/metallb.yaml
+ kubectl apply -f metallb.yaml # this comes from the local folder or use the github gist above
+
+ # apply metallb configmap
+ kubectl apply -f metallbconfigmap.yaml
+
+#apiVersion: v1
+#kind: ConfigMap
+#metadata:
+#  namespace: metallb-system
+#  name: config
+#data:
+#  config: |
+#    address-pools:
+#      - name: my-ip-space
+#        protocol: layer2
+#        addresses:
+#        - 10.0.0.50-10.0.0.59"
+
+#### WORKER NODES ######
+sudo iptables -w -P FORWARD ACCEPT
+
+### JOIN NODES NOW ####
+sudo kubeadm join BLAH BLA BLAH
+
+
+#####Example deployment with loadbalancer #####
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+spec:
+  selector:
+    matchLabels:
+      app: nginx
+  replicas: 4
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+spec:
+  selector:
+    app: nginx
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  externalTrafficPolicy: Local
+  type: LoadBalancer

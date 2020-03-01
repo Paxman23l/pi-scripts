@@ -1,0 +1,24 @@
+---
+- hosts: all
+  become: true
+  become_user: root
+  # sudo: true
+  tasks:
+    - name: updates a server
+      apt: 
+        update_cache: yes
+    - name: upgrade a server
+      apt: 
+        upgrade: dist
+    - name: autoremove unnecessary packages
+      apt: 
+        autoremove: yes
+    - name: autoclean system
+      apt: 
+        autoclean: yes
+    - name: Check if a reboot is required
+      register: file
+      stat: path=/var/run/reboot-required get_md5=no
+    - name: Reboot the server
+      command: /sbin/reboot
+      when: file.stat.exists == true

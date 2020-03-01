@@ -1,0 +1,12 @@
+---
+- hosts: "nodes,master"
+  sudo: true
+  tasks:
+    - name: Install K8s
+      script: ./scripts/rpi-k8s-install.sh --creates home/joel/installations/installed-k8s.txt
+      register: output
+    - debug: var=output.stdout_lines
+    - name: Restart Server
+      reboot:
+
+   

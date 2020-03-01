@@ -1,0 +1,14 @@
+---
+- hosts: nodes
+  sudo: true
+  tasks:
+    - name: Install K8s
+      script: ./scripts/rpi-k8s-install.sh --creates home/joel/installations/installed-k8s.txt
+      register: output
+    - debug: var=output.stdout_lines
+    - name: Restart Server and wait for it to come back up
+      reboot:
+    - name: init k8s and join cluster
+      script: {{ joinScript | mandatory }}
+
+   

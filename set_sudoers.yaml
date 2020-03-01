@@ -1,0 +1,12 @@
+---
+# ansible-playbook set_sudoers.yaml -b -K
+# -K allows you to enter the sudo password before execution
+# -b says to become sudo to execute function
+- hosts: all
+  tasks:
+    - lineinfile:
+        path: /etc/sudoers
+        state: present
+        regexp: '^%sudo'
+        line: '%sudo ALL=(ALL) NOPASSWD:ALL'
+        validate: 'visudo -cf %s'

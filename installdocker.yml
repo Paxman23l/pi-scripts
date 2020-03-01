@@ -1,0 +1,11 @@
+---
+- hosts: "nodes,master"
+  sudo: true
+  tasks:
+    - name: Install Docker
+      script: ./scripts/rpi-docker-install.sh --creates home/joel/installations/installed-docker.txt
+      register: output
+    - debug: var=output.stdout_lines
+    - name: Restart Server
+      reboot:
+   

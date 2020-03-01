@@ -1,0 +1,25 @@
+#ansible-playbook -i <inventory-file> deploy_authorized_keys.yml --ask-pass --extra-vars='pubkey="<pubkey>"'
+
+---
+- hosts: all
+  vars:
+    auth_file: "~/.ssh/authorized_keys"
+  tasks:
+  - name: make direcotry
+    file:
+      path: "~/.ssh"
+      state: directory
+         #- name: check if file exists
+         #stat:
+         #path: "~/.ssh/authorized_keys"
+         #register: authorized_keys
+  - name: create empty file
+    file:
+      path: "~/.ssh/authorized_keys"
+      state: touch
+      #when: auth_file is not exists
+  - name: put pubkey
+    lineinfile:
+      path: "~/.ssh/authorized_keys"
+      line: "{{ pubkey }}"
+      #when: auth_file is exists
