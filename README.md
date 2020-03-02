@@ -1,7 +1,8 @@
-**Docker and K8s on RPI 3/4**
+# Docker and K8s on RPI 3/4
+
 _Dont use the scripts in the scripts folder to install docker and k8s, they're outdated, use the ones in /docker-and-k8s-setup_
 
-*Prerequisites*
+# *Prerequisites*
 - Rasbian Stretch installed and updated
 - Hosts and hostname updated to be unique for each rpi
 
@@ -15,6 +16,6 @@ if installing on regular node:
   3. Run /docker-and-k8s-setup/k8s-node-install.sh on node rpi
   
   
-Other Hints and Tips
-# Running local scripts using ansible
-https://blog.programster.org/ansible-run-a-local-script-on-remote-server
+# Other Hints and Tips
+- Running local scripts using ansible
+  - https://blog.programster.org/ansible-run-a-local-script-on-remote-server
