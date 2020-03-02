@@ -7,7 +7,7 @@ _Dont use the scripts in the scripts folder to install docker and k8s, they're o
 - Hosts and hostname updated to be unique for each rpi
 
 # Steps
-1. Run /docker-and-k8s-setup/docker-install.sh on all rpi's
+    1. Run /docker-and-k8s-setup/docker-install.sh on all rpi's
 
 if installing on Master Node:
 
