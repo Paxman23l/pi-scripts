@@ -28,9 +28,9 @@ echo "Lock docker-ce version"
 sudo apt-mark hold docker-ce
 #sudo apt-mark unhold docker-ce to upgrade
 
-sudo usermod -aG docker joel
+sudo usermod -aG docker $USER
 
-echo "installed docker" >> /home/joel/installations/installed-docker.txt
+echo "installed docker" >> /home/$USER/installations/installed-docker.txt
 
 # sudo reboot -n
 

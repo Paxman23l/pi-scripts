@@ -1,2 +1,10 @@
+
 # Running local scripts using ansible
 https://blog.programster.org/ansible-run-a-local-script-on-remote-server
+
+
+Dont use the scripts in the scripts folder to install docker and k8s, they're outdated
+
+1. Run /docker-and-k8s-setup/docker-install.sh on all rpi's
+2. Run /docker-and-k8s-setup/k8s-master-install.sh on master rpi
+3. Run /docker-and-k8s-setup/k8s-node-install.sh on node rpi

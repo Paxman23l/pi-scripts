@@ -23,7 +23,7 @@ release=$(cat /etc/os-release | grep VERSION_CODENAME)
 if [ $release -eq "VERSION_CODENAME=buster"]
   sudo systemctl disable dphys-swapfile.service
 
-echo "installed k8s >> /home/joel/installations/installed-k8s.txt"
+echo "installed k8s >> /home/$USER/installations/installed-k8s.txt"
 
 #instructions for troubleshooting
 echo "#If you run into cannot connect to localhost:8080, connection refused.  Set up kuberetes so we can use it from the local directory"

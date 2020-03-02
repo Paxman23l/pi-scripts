@@ -11,7 +11,7 @@ https://wiki.learnlinux.tv/index.php/How_to_build_your_own_Raspberry_Pi_Kubernet
 
 
 ##### DOCKER #####
-Edit /boot/cmndline.txt and add:
+Edit /boot/cmdline.txt and add:
 cgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory
 
  sudo apt update && sudo apt dist-upgrade

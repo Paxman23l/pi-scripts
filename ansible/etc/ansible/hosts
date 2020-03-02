@@ -45,19 +45,20 @@
 ##Global Logins
 [all:vars]
 ansible_user=joel
+ansible_pass=""
+ansible_become_pass=""
 
 ## RpiCluster
-[nodes]
+[rpicluster]
 10.0.0.14
 10.0.0.15
 10.0.0.16
 10.0.0.17
 10.0.0.18
-10.0.0.22
 
 ## Master Node
-[master]
-10.0.0.14
+[rpimaster]
+10.0.0.22
 
 ## WeatherPi
 [weatherpi]
