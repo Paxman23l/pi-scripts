@@ -1,0 +1,19 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: [ARM32]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: RUN Docker Script
+      run: ./docker-and-k8s-setup/docker-install.sh
+    - name: RUN k8s Master Script 1
+      run: ./docker-and-k8s-setup/k8s-master-install-part1.sh
+    - name: RUN k8s Master Script 2
+      run: ./docker-and-k8s-setup/k8s-master-install-part2.sh
+    - name: RUN k8s Regular Node Script
+      run: ./docker-and-k8s-setup/k8s-node-install.sh
