@@ -5,7 +5,7 @@ on: [push]
 jobs:
   build:
 
-    runs-on: ARM32
+    runs-on: [ubuntu-latest]
 
     steps:
     - name: Checkout
