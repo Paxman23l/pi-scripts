@@ -1,5 +1,5 @@
 **Docker and K8s on RPI 3/4**
-Dont use the scripts in the scripts folder to install docker and k8s, they're outdated, use the ones in /docker-and-k8s-setup
+_Dont use the scripts in the scripts folder to install docker and k8s, they're outdated, use the ones in /docker-and-k8s-setup_
 
 *Prerequisites*
 - Rasbian Stretch installed and updated
