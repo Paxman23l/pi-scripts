@@ -43,6 +43,8 @@ echo 'Updating /etc/docker/daemon.json'
 sudo cp -R ./daemon.json /etc/docker/
 
 echo "Completed Docker Install"
-echo "Rebooting"
+echo "Rebooting..."
+echo "Run either the k8s-master-install.sh or the k8s-node-install.sh scripts after reboot depending on your needs"
+sleep 3s
 
 sudo reboot
