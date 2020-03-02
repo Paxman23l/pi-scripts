@@ -11,13 +11,13 @@ _Dont use the scripts in the scripts folder to install docker and k8s, they're o
 
 if installing on Master Node:
 
-  2.1 Run /docker-and-k8s-setup/k8s-master-install-part1.sh on master rpi
+    2.1 Run /docker-and-k8s-setup/k8s-master-install-part1.sh on master rpi
   
-  2.2 Run /docker-and-k8s-setup/k8s-master-install-part2.sh on master rpi
+    2.2 Run /docker-and-k8s-setup/k8s-master-install-part2.sh on master rpi
   
 if installing on regular node:
 
-  3. Run /docker-and-k8s-setup/k8s-node-install.sh on node rpi
+    3. Run /docker-and-k8s-setup/k8s-node-install.sh on node rpi
   
   
 # Other Hints and Tips
