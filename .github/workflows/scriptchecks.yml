@@ -5,10 +5,11 @@ on: [push]
 jobs:
   build:
 
-    runs-on: [ARM32]
+    runs-on: ARM32
 
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout
+      uses: actions/checkout@v2.0.0
     - name: RUN Docker Script
       run: ./docker-and-k8s-setup/docker-install.sh
     - name: RUN k8s Master Script 1
