@@ -5,15 +5,15 @@ echo "Master Node - Install and Setup Part 2"
 # Add K8s apt repo
 echo "Initializing Cluster"
 
-read -p "Enter Pod Network CIDR [192.168.0.0/16]: " cidr
-cidr=${cidr:-"192.168.0.0/16"}
+read -p "Enter Pod Network CIDR [10.244.0.0/16]: " cidr
+cidr=${cidr:-"10.244.0.0/16"}
 echo "Using Pod CIDR: $cidr"
 
 read -p "Enter apiserver-advertise-address (IP Address of your master node) [10.0.0.22]: " apiServerAddress
 apiServerAddress=${apiServerAddress:-"10.0.0.22"}
 echo "Using apiserver-advertise-address: $apiServerAddress"
 
-sudo kubeadm init --pod-network-cidr=$cidr--apiserver-advertise-address=$apiServerAddress
+sudo kubeadm init --pod-network-cidr=$cidr --apiserver-advertise-address=$apiServerAddress
 
 # Make kubectl available for current user
 echo 'Making kubectl available for current user'
